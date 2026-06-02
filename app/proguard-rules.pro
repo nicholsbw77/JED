@@ -1,0 +1,4 @@
+-keep class com.jed.app.data.model.** { *; }
+-keep class com.jed.app.data.DtcDatabase$JsonDtcEntry { *; }
+-keepclassmembers class * extends androidx.room.RoomDatabase { *; }
+-dontwarn javax.annotation.**
