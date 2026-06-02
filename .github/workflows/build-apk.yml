@@ -30,18 +30,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Gradle 8.9
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.9'
 
       - name: Build Debug APK
         if: ${{ github.event.inputs.build_type != 'release' }}
-        run: gradle assembleDebug
+        run: ./gradlew assembleDebug
 
       - name: Build Release APK (unsigned)
         if: ${{ github.event.inputs.build_type == 'release' }}
-        run: gradle assembleRelease
+        run: ./gradlew assembleRelease
 
       - name: Upload Debug APK
         if: ${{ github.event.inputs.build_type != 'release' }}
