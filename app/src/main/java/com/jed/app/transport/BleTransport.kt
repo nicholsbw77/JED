@@ -2,6 +2,7 @@ package com.jed.app.transport
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
@@ -98,7 +99,7 @@ class BleTransport @Inject constructor(
 
         val deferred = CompletableDeferred<Boolean>()
         connectDeferred = deferred
-        gatt = device.connectGatt(context, false, gattCallback, BluetoothGatt.TRANSPORT_LE)
+        gatt = device.connectGatt(context, false, gattCallback, BluetoothDevice.TRANSPORT_LE)
 
         val ok = withTimeoutOrNull(CONNECT_TIMEOUT_MS) { deferred.await() } ?: false
         if (ok) {
