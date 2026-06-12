@@ -1,8 +1,30 @@
-# JED — OBDx Pro VX Diagnostic App
+# JED — OBD-II Diagnostic App
 
 ## Overview
 
-JED is a native Android app (Kotlin + Jetpack Compose) that interfaces with the OBDx Pro VX scanner over Bluetooth Classic SPP. It targets 1996-2015 Ford and Chevrolet OBD-II vehicles. The app provides live dashboards, parameter tuning, security PIN retrieval for key programming, and DTC management.
+JED is a native Android app (Kotlin + Jetpack Compose) that interfaces with any
+ELM327-style OBD-II adapter over **Bluetooth Classic (SPP), Bluetooth LE, or
+Wi-Fi**. It works with any 1996+ OBD-II vehicle (all makes) for live data,
+trouble codes, emissions readiness, and vehicle info, with extra guidance for
+Ford/GM. The app also recommends which adapter to buy for a given make/model.
+
+> **Implementation update (2026-06-12).** This spec was the original design.
+> The shipped app diverges from it deliberately, after a correctness review:
+>
+> - **Multi-adapter:** not OBDx-Pro-VX-only — Bluetooth Classic, BLE, and Wi-Fi
+>   are all supported behind an `ObdTransport` abstraction (`transport` package).
+> - **All makes:** generic OBD-II works for every 1996+ vehicle, not just Ford/Chevy.
+> - **Removed fabricated features:** Ford PATS PIN extraction and the parameter
+>   "tuning" / relearn *write* commands were deleted. They sent invented UDS
+>   commands that cannot work over a generic ELM327. The PIN database / fake
+>   "encryption" were removed with them.
+> - **Service tab (replaces Tuning):** emissions readiness monitors + vehicle
+>   info (VIN / Calibration ID / CVN) — all real, read-only OBD-II queries.
+> - **Security & Keys tab:** honest guidance only — GM owner relearn timers
+>   (no scanner command needed) and Ford onboard spare-key steps, with a clear
+>   note that PIN extraction needs dealer/locksmith tools.
+> - **DTC database:** ships a curated set of ~120 common standardized codes
+>   (not the 15,000 originally claimed).
 
 **UI Style:** Industrial / rugged — dark charcoal backgrounds, high-contrast white/orange/red indicators, large touch targets for garage use.
 

@@ -1,7 +1,7 @@
 package com.jed.app.elm327
 
-import com.jed.app.bluetooth.BluetoothTransport
-import com.jed.app.bluetooth.ConnectionState
+import com.jed.app.transport.ConnectionState
+import com.jed.app.transport.TransportManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ElmConnection @Inject constructor(
-    private val transport: BluetoothTransport
+    private val transport: TransportManager
 ) {
     private val commandMutex = Mutex()
 

@@ -28,7 +28,7 @@ import com.jed.app.ui.theme.OrangeAccent
 import com.jed.app.ui.theme.OffWhite
 import com.jed.app.ui.theme.RedAlert
 import com.jed.app.ui.theme.YellowWarn
-import com.jed.app.bluetooth.ConnectionState
+import com.jed.app.transport.ConnectionState
 
 @Composable
 fun ConnectionStatusBar(
@@ -36,10 +36,12 @@ fun ConnectionStatusBar(
 ) {
     val state by viewModel.connectionState.collectAsState()
     val deviceName by viewModel.deviceName.collectAsState()
+    val adapterType by viewModel.adapterType.collectAsState()
     val voltage by viewModel.batteryVoltage.collectAsState()
 
+    val connectedLabel = adapterType?.let { "Connected · ${it.shortLabel}" } ?: "Connected"
     val (icon, tint, label) = when (state) {
-        ConnectionState.CONNECTED -> Triple(Icons.Default.BluetoothConnected, GreenGood, "Connected")
+        ConnectionState.CONNECTED -> Triple(Icons.Default.BluetoothConnected, GreenGood, connectedLabel)
         ConnectionState.CONNECTING -> Triple(Icons.Default.BluetoothSearching, YellowWarn, "Connecting...")
         ConnectionState.RECONNECTING -> Triple(Icons.Default.BluetoothSearching, OrangeAccent, "Reconnecting...")
         ConnectionState.DISCONNECTED -> Triple(Icons.Default.BluetoothDisabled, RedAlert, "Disconnected")

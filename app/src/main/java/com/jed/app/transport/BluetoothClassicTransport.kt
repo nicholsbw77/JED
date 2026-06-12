@@ -1,19 +1,15 @@
-package com.jed.app.bluetooth
+package com.jed.app.transport
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.InputStream
@@ -22,84 +18,77 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
-enum class ConnectionState {
-    DISCONNECTED, CONNECTING, CONNECTED, RECONNECTING
-}
-
+/** Bluetooth Classic SPP link — the classic ELM327 (e.g. OBDLink MX+, vGate). */
 @Singleton
-class BluetoothTransport @Inject constructor(
+class BluetoothClassicTransport @Inject constructor(
     @ApplicationContext private val context: Context
-) {
+) : ObdTransport {
+
     companion object {
         private val SPP_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-        private const val MAX_RECONNECT_ATTEMPTS = 5
-        private const val INITIAL_BACKOFF_MS = 1000L
     }
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    private val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+    private val bluetoothManager =
+        context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
     private val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
 
     private var socket: BluetoothSocket? = null
     private var inputStream: InputStream? = null
     private var outputStream: OutputStream? = null
-    private var connectedDevice: BluetoothDevice? = null
 
     private val _connectionState = MutableStateFlow(ConnectionState.DISCONNECTED)
-    val connectionState: StateFlow<ConnectionState> = _connectionState
+    override val connectionState: StateFlow<ConnectionState> = _connectionState
 
-    private val _deviceName = MutableStateFlow("")
-    val deviceName: StateFlow<String> = _deviceName
+    val isBluetoothAvailable: Boolean get() = bluetoothAdapter != null
 
     @SuppressLint("MissingPermission")
-    fun getPairedDevices(): List<BluetoothDevice> {
-        return bluetoothAdapter?.bondedDevices?.toList() ?: emptyList()
+    fun pairedAdapters(): List<AdapterTarget.Classic> {
+        return bluetoothAdapter?.bondedDevices
+            ?.map { AdapterTarget.Classic(name = it.name ?: "", address = it.address) }
+            ?: emptyList()
     }
 
     @SuppressLint("MissingPermission")
-    suspend fun connect(device: BluetoothDevice): Boolean = withContext(Dispatchers.IO) {
+    override suspend fun connect(target: AdapterTarget): Boolean = withContext(Dispatchers.IO) {
+        if (target !is AdapterTarget.Classic) return@withContext false
+        val adapter = bluetoothAdapter ?: return@withContext false
         _connectionState.value = ConnectionState.CONNECTING
         try {
-            bluetoothAdapter?.cancelDiscovery()
+            adapter.cancelDiscovery()
+            val device = adapter.getRemoteDevice(target.address)
             val btSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
             btSocket.connect()
             socket = btSocket
             inputStream = btSocket.inputStream
             outputStream = btSocket.outputStream
-            connectedDevice = device
-            _deviceName.value = device.name ?: "Unknown"
             _connectionState.value = ConnectionState.CONNECTED
             true
         } catch (e: IOException) {
-            _connectionState.value = ConnectionState.DISCONNECTED
+            disconnect()
             false
         }
     }
 
-    fun disconnect() {
+    override fun disconnect() {
         try {
             inputStream?.close()
             outputStream?.close()
             socket?.close()
-        } catch (_: IOException) {}
+        } catch (_: IOException) {
+        }
         socket = null
         inputStream = null
         outputStream = null
-        connectedDevice = null
         _connectionState.value = ConnectionState.DISCONNECTED
-        _deviceName.value = ""
     }
 
-    suspend fun send(data: ByteArray) = withContext(Dispatchers.IO) {
-        outputStream?.write(data) ?: throw IOException("Not connected")
-        outputStream?.flush()
+    override suspend fun send(data: ByteArray) = withContext(Dispatchers.IO) {
+        val out = outputStream ?: throw IOException("Not connected")
+        out.write(data)
+        out.flush()
     }
 
-    suspend fun sendString(command: String) {
-        send("$command\r".toByteArray(Charsets.US_ASCII))
-    }
-
-    suspend fun readUntilPrompt(timeoutMs: Long = 2000): String = withContext(Dispatchers.IO) {
+    override suspend fun readUntilPrompt(timeoutMs: Long): String = withContext(Dispatchers.IO) {
         val buffer = StringBuilder()
         val startTime = System.currentTimeMillis()
         val stream = inputStream ?: throw IOException("Not connected")
@@ -116,23 +105,5 @@ class BluetoothTransport @Inject constructor(
             }
         }
         buffer.toString().trim()
-    }
-
-    fun startAutoReconnect() {
-        scope.launch {
-            var attempt = 0
-            while (attempt < MAX_RECONNECT_ATTEMPTS) {
-                val device = connectedDevice ?: return@launch
-                if (_connectionState.value == ConnectionState.CONNECTED) return@launch
-
-                _connectionState.value = ConnectionState.RECONNECTING
-                val backoff = INITIAL_BACKOFF_MS * (1 shl attempt)
-                delay(backoff)
-
-                if (connect(device)) return@launch
-                attempt++
-            }
-            _connectionState.value = ConnectionState.DISCONNECTED
-        }
     }
 }
