@@ -1,50 +1,1346 @@
 [
-  {"code":"P0100","short":"MAF Circuit","desc":"Mass Air Flow circuit malfunction","causes":["Dirty MAF sensor","Wiring damage","Bad connector"],"severity":"warning"},
-  {"code":"P0101","short":"MAF Range/Performance","desc":"MAF sensor range or performance issue","causes":["Dirty MAF sensor","Air leak","Clogged air filter"],"severity":"warning"},
-  {"code":"P0102","short":"MAF Low Input","desc":"MAF circuit low input","causes":["Failed MAF sensor","Open circuit","PCM fault"],"severity":"warning"},
-  {"code":"P0103","short":"MAF High Input","desc":"MAF circuit high input","causes":["Short circuit","Failed MAF sensor"],"severity":"warning"},
-  {"code":"P0110","short":"IAT Circuit","desc":"Intake air temperature circuit malfunction","causes":["Failed IAT sensor","Wiring issue","Connector corrosion"],"severity":"info"},
-  {"code":"P0115","short":"ECT Circuit","desc":"Engine coolant temperature circuit malfunction","causes":["Failed ECT sensor","Open circuit","Wiring damage"],"severity":"warning"},
-  {"code":"P0120","short":"TPS Circuit","desc":"Throttle position sensor circuit malfunction","causes":["Failed TPS","Wiring damage","PCM fault"],"severity":"critical"},
-  {"code":"P0125","short":"Coolant Temp Insufficient","desc":"Insufficient coolant temp for closed loop","causes":["Stuck thermostat","Low coolant","Failed ECT sensor"],"severity":"warning"},
-  {"code":"P0130","short":"O2 Sensor B1S1","desc":"O2 sensor circuit malfunction bank 1 sensor 1","causes":["Failed O2 sensor","Exhaust leak","Wiring damage"],"severity":"warning"},
-  {"code":"P0131","short":"O2 Low Voltage B1S1","desc":"O2 sensor circuit low voltage bank 1 sensor 1","causes":["Lean condition","Failed O2 sensor","Vacuum leak"],"severity":"warning"},
-  {"code":"P0133","short":"O2 Slow Response B1S1","desc":"O2 sensor slow response bank 1 sensor 1","causes":["Aging O2 sensor","Exhaust leak","Fuel delivery issue"],"severity":"warning"},
-  {"code":"P0135","short":"O2 Heater B1S1","desc":"O2 sensor heater circuit malfunction bank 1 sensor 1","causes":["Blown fuse","Failed heater circuit","Wiring"],"severity":"warning"},
-  {"code":"P0171","short":"System Lean B1","desc":"System too lean bank 1","causes":["Vacuum leak","Weak fuel pump","Dirty injectors","MAF sensor"],"severity":"warning"},
-  {"code":"P0172","short":"System Rich B1","desc":"System too rich bank 1","causes":["Leaking injector","Faulty fuel pressure regulator","Bad O2 sensor"],"severity":"warning"},
-  {"code":"P0174","short":"System Lean B2","desc":"System too lean bank 2","causes":["Vacuum leak","Intake gasket","Weak fuel pump"],"severity":"warning"},
-  {"code":"P0175","short":"System Rich B2","desc":"System too rich bank 2","causes":["Leaking injector","Fuel pressure issue","Bad O2 sensor"],"severity":"warning"},
-  {"code":"P0300","short":"Random Misfire","desc":"Random/multiple cylinder misfire detected","causes":["Bad spark plugs","Vacuum leak","Low fuel pressure","Bad coil"],"severity":"critical"},
-  {"code":"P0301","short":"Cylinder 1 Misfire","desc":"Cylinder 1 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue","Low compression"],"severity":"critical"},
-  {"code":"P0302","short":"Cylinder 2 Misfire","desc":"Cylinder 2 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0303","short":"Cylinder 3 Misfire","desc":"Cylinder 3 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0304","short":"Cylinder 4 Misfire","desc":"Cylinder 4 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0305","short":"Cylinder 5 Misfire","desc":"Cylinder 5 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0306","short":"Cylinder 6 Misfire","desc":"Cylinder 6 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0307","short":"Cylinder 7 Misfire","desc":"Cylinder 7 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0308","short":"Cylinder 8 Misfire","desc":"Cylinder 8 misfire detected","causes":["Bad spark plug","Failed coil","Injector issue"],"severity":"critical"},
-  {"code":"P0325","short":"Knock Sensor 1","desc":"Knock sensor 1 circuit malfunction","causes":["Failed knock sensor","Wiring damage","PCM fault"],"severity":"warning"},
-  {"code":"P0335","short":"CKP Sensor","desc":"Crankshaft position sensor circuit malfunction","causes":["Failed CKP sensor","Damaged reluctor ring","Wiring"],"severity":"critical"},
-  {"code":"P0340","short":"CMP Sensor","desc":"Camshaft position sensor circuit malfunction","causes":["Failed CMP sensor","Timing chain stretch","Wiring"],"severity":"critical"},
-  {"code":"P0401","short":"EGR Insufficient Flow","desc":"EGR insufficient flow detected","causes":["Clogged EGR passages","Failed EGR valve","DPFE sensor"],"severity":"warning"},
-  {"code":"P0420","short":"Catalyst Below Threshold B1","desc":"Catalyst system efficiency below threshold bank 1","causes":["Failed catalytic converter","O2 sensor issue","Exhaust leak"],"severity":"warning"},
-  {"code":"P0430","short":"Catalyst Below Threshold B2","desc":"Catalyst system efficiency below threshold bank 2","causes":["Failed catalytic converter","O2 sensor issue"],"severity":"warning"},
-  {"code":"P0440","short":"EVAP System","desc":"Evaporative emission control system malfunction","causes":["Loose gas cap","EVAP canister","Purge valve"],"severity":"info"},
-  {"code":"P0442","short":"EVAP Small Leak","desc":"EVAP system small leak detected","causes":["Loose gas cap","Cracked hose","Purge valve"],"severity":"info"},
-  {"code":"P0446","short":"EVAP Vent Control","desc":"EVAP vent control circuit malfunction","causes":["Failed vent solenoid","Wiring issue","Blocked vent"],"severity":"info"},
-  {"code":"P0455","short":"EVAP Large Leak","desc":"EVAP system large leak detected","causes":["Missing gas cap","Disconnected hose","Failed purge valve"],"severity":"warning"},
-  {"code":"P0500","short":"VSS Malfunction","desc":"Vehicle speed sensor malfunction","causes":["Failed VSS","Wiring damage","PCM fault"],"severity":"warning"},
-  {"code":"P0505","short":"IAC System","desc":"Idle air control system malfunction","causes":["Dirty IAC valve","Vacuum leak","Carbon buildup"],"severity":"warning"},
-  {"code":"P0507","short":"Idle Speed High","desc":"Idle control system RPM higher than expected","causes":["Vacuum leak","Dirty throttle body","IAC valve"],"severity":"warning"},
-  {"code":"P0562","short":"System Voltage Low","desc":"System voltage low","causes":["Weak battery","Bad alternator","Loose belt"],"severity":"warning"},
-  {"code":"P0700","short":"TCM Malfunction","desc":"Transmission control system malfunction","causes":["TCM fault","Wiring issue","Solenoid failure"],"severity":"critical"},
-  {"code":"P0715","short":"Input Speed Sensor","desc":"Input/turbine speed sensor circuit malfunction","causes":["Failed sensor","Wiring damage","Low fluid"],"severity":"critical"},
-  {"code":"P0720","short":"Output Speed Sensor","desc":"Output speed sensor circuit malfunction","causes":["Failed sensor","Wiring damage"],"severity":"critical"},
-  {"code":"P0741","short":"TCC Stuck Off","desc":"Torque converter clutch solenoid stuck off","causes":["Failed TCC solenoid","Low fluid","Internal damage"],"severity":"warning"},
-  {"code":"P1000","short":"OBD Monitors Incomplete","desc":"OBD-II monitors not complete (Ford specific)","causes":["Battery recently disconnected","Codes recently cleared","Drive cycle not complete"],"severity":"info"},
-  {"code":"P1131","short":"Lack of HO2S Switch Lean B1","desc":"Lack of upstream heated O2 switch, sensor indicates lean, bank 1 (Ford)","causes":["Vacuum leak","Low fuel pressure","Bad O2 sensor"],"severity":"warning"},
-  {"code":"P1151","short":"Lack of HO2S Switch Lean B2","desc":"Lack of upstream heated O2 switch, sensor indicates lean, bank 2 (Ford)","causes":["Vacuum leak","Low fuel pressure","Intake gasket leak"],"severity":"warning"},
-  {"code":"P1260","short":"PATS Theft Detected","desc":"Theft detected - vehicle immobilized (Ford PATS)","causes":["Wrong key","PATS module fault","Key transponder failure"],"severity":"critical"},
-  {"code":"P1451","short":"EVAP Vent Solenoid Output","desc":"EVAP control system canister vent solenoid circuit (Ford)","causes":["Failed vent solenoid","Wiring","PCM fault"],"severity":"info"}
+  {
+    "code": "P0011",
+    "short": "Camshaft Timing Over-Advanced (B1)",
+    "desc": "Intake camshaft timing over-advanced or system performance, bank 1",
+    "causes": [
+      "Failing VVT solenoid",
+      "Low/dirty oil",
+      "Timing component wear"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0014",
+    "short": "Camshaft Timing Over-Advanced (B1 exhaust)",
+    "desc": "Exhaust camshaft timing over-advanced or system performance, bank 1",
+    "causes": [
+      "Failing VVT solenoid",
+      "Low/dirty oil"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0021",
+    "short": "Camshaft Timing Over-Advanced (B2)",
+    "desc": "Intake camshaft timing over-advanced or system performance, bank 2",
+    "causes": [
+      "Failing VVT solenoid",
+      "Low/dirty oil"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0100",
+    "short": "MAF Circuit",
+    "desc": "Mass Air Flow circuit malfunction",
+    "causes": [
+      "Dirty MAF sensor",
+      "Wiring damage",
+      "Bad connector"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0101",
+    "short": "MAF Range/Performance",
+    "desc": "MAF sensor range or performance issue",
+    "causes": [
+      "Dirty MAF sensor",
+      "Air leak",
+      "Clogged air filter"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0102",
+    "short": "MAF Low Input",
+    "desc": "MAF circuit low input",
+    "causes": [
+      "Failed MAF sensor",
+      "Open circuit",
+      "PCM fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0103",
+    "short": "MAF High Input",
+    "desc": "MAF circuit high input",
+    "causes": [
+      "Short circuit",
+      "Failed MAF sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0106",
+    "short": "MAP Range/Performance",
+    "desc": "Manifold Absolute Pressure range/performance problem",
+    "causes": [
+      "Vacuum leak",
+      "Failing MAP sensor",
+      "Clogged MAP passage"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0107",
+    "short": "MAP Circuit Low",
+    "desc": "Manifold Absolute Pressure circuit low input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0108",
+    "short": "MAP Circuit High",
+    "desc": "Manifold Absolute Pressure circuit high input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0110",
+    "short": "IAT Circuit",
+    "desc": "Intake air temperature circuit malfunction",
+    "causes": [
+      "Failed IAT sensor",
+      "Wiring issue",
+      "Connector corrosion"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0111",
+    "short": "IAT Range/Performance",
+    "desc": "Intake Air Temperature sensor range/performance",
+    "causes": [
+      "Failing IAT sensor",
+      "Wiring fault"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0112",
+    "short": "IAT Circuit Low",
+    "desc": "Intake Air Temperature circuit low input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0113",
+    "short": "IAT Circuit High",
+    "desc": "Intake Air Temperature circuit high input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0115",
+    "short": "ECT Circuit",
+    "desc": "Engine coolant temperature circuit malfunction",
+    "causes": [
+      "Failed ECT sensor",
+      "Open circuit",
+      "Wiring damage"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0116",
+    "short": "ECT Range/Performance",
+    "desc": "Engine Coolant Temperature range/performance",
+    "causes": [
+      "Failing ECT sensor",
+      "Stuck thermostat"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0117",
+    "short": "ECT Circuit Low",
+    "desc": "Engine Coolant Temperature circuit low input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0118",
+    "short": "ECT Circuit High",
+    "desc": "Engine Coolant Temperature circuit high input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0120",
+    "short": "TPS Circuit",
+    "desc": "Throttle position sensor circuit malfunction",
+    "causes": [
+      "Failed TPS",
+      "Wiring damage",
+      "PCM fault"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0121",
+    "short": "TPS Range/Performance",
+    "desc": "Throttle Position sensor range/performance",
+    "causes": [
+      "Failing TPS",
+      "Dirty throttle body",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0122",
+    "short": "TPS Circuit Low",
+    "desc": "Throttle Position sensor circuit low input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0123",
+    "short": "TPS Circuit High",
+    "desc": "Throttle Position sensor circuit high input",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0125",
+    "short": "Coolant Temp Insufficient",
+    "desc": "Insufficient coolant temp for closed loop",
+    "causes": [
+      "Stuck thermostat",
+      "Low coolant",
+      "Failed ECT sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0128",
+    "short": "Coolant Thermostat Below Regulating Temp",
+    "desc": "Coolant thermostat regulating temperature too low",
+    "causes": [
+      "Stuck-open thermostat",
+      "Failing ECT sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0130",
+    "short": "O2 Sensor B1S1",
+    "desc": "O2 sensor circuit malfunction bank 1 sensor 1",
+    "causes": [
+      "Failed O2 sensor",
+      "Exhaust leak",
+      "Wiring damage"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0131",
+    "short": "O2 Low Voltage B1S1",
+    "desc": "O2 sensor circuit low voltage bank 1 sensor 1",
+    "causes": [
+      "Lean condition",
+      "Failed O2 sensor",
+      "Vacuum leak"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0133",
+    "short": "O2 Slow Response B1S1",
+    "desc": "O2 sensor slow response bank 1 sensor 1",
+    "causes": [
+      "Aging O2 sensor",
+      "Exhaust leak",
+      "Fuel delivery issue"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0134",
+    "short": "O2 Heater Circuit B1S1",
+    "desc": "Oxygen sensor heater circuit malfunction, bank 1 sensor 1",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0135",
+    "short": "O2 Heater B1S1",
+    "desc": "O2 sensor heater circuit malfunction bank 1 sensor 1",
+    "causes": [
+      "Blown fuse",
+      "Failed heater circuit",
+      "Wiring"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0136",
+    "short": "O2 Sensor Circuit B1S2",
+    "desc": "Oxygen sensor circuit malfunction, bank 1 sensor 2 (downstream)",
+    "causes": [
+      "Failing O2 sensor",
+      "Exhaust leak",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0137",
+    "short": "O2 Heater Circuit B1S2",
+    "desc": "Oxygen sensor heater circuit, bank 1 sensor 2",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Blown fuse",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P013A",
+    "short": "O2 Heater Circuit B1S2",
+    "desc": "Oxygen sensor heater circuit malfunction, bank 1 sensor 2",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0150",
+    "short": "O2 Sensor Circuit B2S1",
+    "desc": "Oxygen sensor circuit malfunction, bank 2 sensor 1 (upstream)",
+    "causes": [
+      "Failing O2 sensor",
+      "Exhaust leak",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0151",
+    "short": "O2 Heater Circuit B2S1",
+    "desc": "Oxygen sensor heater circuit, bank 2 sensor 1",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Blown fuse",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0154",
+    "short": "O2 Heater Circuit B2S1",
+    "desc": "Oxygen sensor heater circuit malfunction, bank 2 sensor 1",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0156",
+    "short": "O2 Sensor Circuit B2S2",
+    "desc": "Oxygen sensor circuit malfunction, bank 2 sensor 2 (downstream)",
+    "causes": [
+      "Failing O2 sensor",
+      "Exhaust leak",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0157",
+    "short": "O2 Heater Circuit B2S2",
+    "desc": "Oxygen sensor heater circuit, bank 2 sensor 2",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Blown fuse",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P015A",
+    "short": "O2 Heater Circuit B2S2",
+    "desc": "Oxygen sensor heater circuit malfunction, bank 2 sensor 2",
+    "causes": [
+      "Failing O2 sensor heater",
+      "Wiring fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0171",
+    "short": "System Lean B1",
+    "desc": "System too lean bank 1",
+    "causes": [
+      "Vacuum leak",
+      "Weak fuel pump",
+      "Dirty injectors",
+      "MAF sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0172",
+    "short": "System Rich B1",
+    "desc": "System too rich bank 1",
+    "causes": [
+      "Leaking injector",
+      "Faulty fuel pressure regulator",
+      "Bad O2 sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0174",
+    "short": "System Lean B2",
+    "desc": "System too lean bank 2",
+    "causes": [
+      "Vacuum leak",
+      "Intake gasket",
+      "Weak fuel pump"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0175",
+    "short": "System Rich B2",
+    "desc": "System too rich bank 2",
+    "causes": [
+      "Leaking injector",
+      "Fuel pressure issue",
+      "Bad O2 sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0201",
+    "short": "Injector 1 Circuit",
+    "desc": "Cylinder 1 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0202",
+    "short": "Injector 2 Circuit",
+    "desc": "Cylinder 2 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0203",
+    "short": "Injector 3 Circuit",
+    "desc": "Cylinder 3 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0204",
+    "short": "Injector 4 Circuit",
+    "desc": "Cylinder 4 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0205",
+    "short": "Injector 5 Circuit",
+    "desc": "Cylinder 5 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0206",
+    "short": "Injector 6 Circuit",
+    "desc": "Cylinder 6 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0207",
+    "short": "Injector 7 Circuit",
+    "desc": "Cylinder 7 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0208",
+    "short": "Injector 8 Circuit",
+    "desc": "Cylinder 8 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0209",
+    "short": "Injector 9 Circuit",
+    "desc": "Cylinder 9 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0210",
+    "short": "Injector 10 Circuit",
+    "desc": "Cylinder 10 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0211",
+    "short": "Injector 11 Circuit",
+    "desc": "Cylinder 11 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0212",
+    "short": "Injector 12 Circuit",
+    "desc": "Cylinder 12 injector circuit malfunction",
+    "causes": [
+      "Failing injector",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0300",
+    "short": "Random Misfire",
+    "desc": "Random/multiple cylinder misfire detected",
+    "causes": [
+      "Bad spark plugs",
+      "Vacuum leak",
+      "Low fuel pressure",
+      "Bad coil"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0301",
+    "short": "Cylinder 1 Misfire",
+    "desc": "Cylinder 1 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue",
+      "Low compression"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0302",
+    "short": "Cylinder 2 Misfire",
+    "desc": "Cylinder 2 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0303",
+    "short": "Cylinder 3 Misfire",
+    "desc": "Cylinder 3 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0304",
+    "short": "Cylinder 4 Misfire",
+    "desc": "Cylinder 4 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0305",
+    "short": "Cylinder 5 Misfire",
+    "desc": "Cylinder 5 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0306",
+    "short": "Cylinder 6 Misfire",
+    "desc": "Cylinder 6 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0307",
+    "short": "Cylinder 7 Misfire",
+    "desc": "Cylinder 7 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0308",
+    "short": "Cylinder 8 Misfire",
+    "desc": "Cylinder 8 misfire detected",
+    "causes": [
+      "Bad spark plug",
+      "Failed coil",
+      "Injector issue"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0309",
+    "short": "Cylinder 9 Misfire",
+    "desc": "Cylinder 9 misfire detected",
+    "causes": [
+      "Worn spark plug",
+      "Failing ignition coil",
+      "Faulty injector",
+      "Low compression"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0310",
+    "short": "Cylinder 10 Misfire",
+    "desc": "Cylinder 10 misfire detected",
+    "causes": [
+      "Worn spark plug",
+      "Failing ignition coil",
+      "Faulty injector",
+      "Low compression"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0311",
+    "short": "Cylinder 11 Misfire",
+    "desc": "Cylinder 11 misfire detected",
+    "causes": [
+      "Worn spark plug",
+      "Failing ignition coil",
+      "Faulty injector",
+      "Low compression"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0312",
+    "short": "Cylinder 12 Misfire",
+    "desc": "Cylinder 12 misfire detected",
+    "causes": [
+      "Worn spark plug",
+      "Failing ignition coil",
+      "Faulty injector",
+      "Low compression"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0325",
+    "short": "Knock Sensor 1",
+    "desc": "Knock sensor 1 circuit malfunction",
+    "causes": [
+      "Failed knock sensor",
+      "Wiring damage",
+      "PCM fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0330",
+    "short": "Knock Sensor 2 Circuit",
+    "desc": "Knock sensor 2 circuit malfunction (bank 2)",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0335",
+    "short": "CKP Sensor",
+    "desc": "Crankshaft position sensor circuit malfunction",
+    "causes": [
+      "Failed CKP sensor",
+      "Damaged reluctor ring",
+      "Wiring"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0336",
+    "short": "CKP Sensor Range/Performance",
+    "desc": "Crankshaft position sensor A range/performance",
+    "causes": [
+      "Failing CKP sensor",
+      "Damaged reluctor ring"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0340",
+    "short": "CMP Sensor",
+    "desc": "Camshaft position sensor circuit malfunction",
+    "causes": [
+      "Failed CMP sensor",
+      "Timing chain stretch",
+      "Wiring"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0341",
+    "short": "CMP Sensor Range/Performance",
+    "desc": "Camshaft position sensor A range/performance",
+    "causes": [
+      "Failing CMP sensor",
+      "Timing fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0344",
+    "short": "CMP Intermittent",
+    "desc": "Camshaft position sensor A circuit intermittent",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0351",
+    "short": "Ignition Coil 1 Circuit",
+    "desc": "Ignition coil 1 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0352",
+    "short": "Ignition Coil 2 Circuit",
+    "desc": "Ignition coil 2 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0353",
+    "short": "Ignition Coil 3 Circuit",
+    "desc": "Ignition coil 3 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0354",
+    "short": "Ignition Coil 4 Circuit",
+    "desc": "Ignition coil 4 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0355",
+    "short": "Ignition Coil 5 Circuit",
+    "desc": "Ignition coil 5 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0356",
+    "short": "Ignition Coil 6 Circuit",
+    "desc": "Ignition coil 6 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0357",
+    "short": "Ignition Coil 7 Circuit",
+    "desc": "Ignition coil 7 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0358",
+    "short": "Ignition Coil 8 Circuit",
+    "desc": "Ignition coil 8 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0359",
+    "short": "Ignition Coil 9 Circuit",
+    "desc": "Ignition coil 9 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0360",
+    "short": "Ignition Coil 10 Circuit",
+    "desc": "Ignition coil 10 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0361",
+    "short": "Ignition Coil 11 Circuit",
+    "desc": "Ignition coil 11 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0362",
+    "short": "Ignition Coil 12 Circuit",
+    "desc": "Ignition coil 12 primary/secondary circuit malfunction",
+    "causes": [
+      "Failing ignition coil",
+      "Wiring fault",
+      "ECM driver fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0401",
+    "short": "EGR Insufficient Flow",
+    "desc": "EGR insufficient flow detected",
+    "causes": [
+      "Clogged EGR passages",
+      "Failed EGR valve",
+      "DPFE sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0402",
+    "short": "EGR Flow Excessive",
+    "desc": "Exhaust gas recirculation flow excessive detected",
+    "causes": [
+      "Stuck-open EGR valve",
+      "Carbon buildup"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0403",
+    "short": "EGR Circuit",
+    "desc": "Exhaust gas recirculation control circuit malfunction",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection",
+      "Failing EGR valve"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0420",
+    "short": "Catalyst Below Threshold B1",
+    "desc": "Catalyst system efficiency below threshold bank 1",
+    "causes": [
+      "Failed catalytic converter",
+      "O2 sensor issue",
+      "Exhaust leak"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0430",
+    "short": "Catalyst Below Threshold B2",
+    "desc": "Catalyst system efficiency below threshold bank 2",
+    "causes": [
+      "Failed catalytic converter",
+      "O2 sensor issue"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0440",
+    "short": "EVAP System",
+    "desc": "Evaporative emission control system malfunction",
+    "causes": [
+      "Loose gas cap",
+      "EVAP canister",
+      "Purge valve"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0441",
+    "short": "EVAP Incorrect Purge Flow",
+    "desc": "Evaporative emission system incorrect purge flow",
+    "causes": [
+      "Failing purge valve",
+      "Vacuum line fault"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0442",
+    "short": "EVAP Small Leak",
+    "desc": "EVAP system small leak detected",
+    "causes": [
+      "Loose gas cap",
+      "Cracked hose",
+      "Purge valve"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0443",
+    "short": "EVAP Purge Valve Circuit",
+    "desc": "Evaporative emission system purge control valve circuit",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0446",
+    "short": "EVAP Vent Control",
+    "desc": "EVAP vent control circuit malfunction",
+    "causes": [
+      "Failed vent solenoid",
+      "Wiring issue",
+      "Blocked vent"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0455",
+    "short": "EVAP Large Leak",
+    "desc": "EVAP system large leak detected",
+    "causes": [
+      "Missing gas cap",
+      "Disconnected hose",
+      "Failed purge valve"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0456",
+    "short": "EVAP Very Small Leak",
+    "desc": "Evaporative emission system leak detected (very small leak)",
+    "causes": [
+      "Loose gas cap",
+      "Tiny EVAP leak"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P0500",
+    "short": "VSS Malfunction",
+    "desc": "Vehicle speed sensor malfunction",
+    "causes": [
+      "Failed VSS",
+      "Wiring damage",
+      "PCM fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0505",
+    "short": "IAC System",
+    "desc": "Idle air control system malfunction",
+    "causes": [
+      "Dirty IAC valve",
+      "Vacuum leak",
+      "Carbon buildup"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0506",
+    "short": "Idle RPM Lower Than Expected",
+    "desc": "Idle control system RPM lower than expected",
+    "causes": [
+      "Dirty throttle body",
+      "Vacuum leak"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0507",
+    "short": "Idle Speed High",
+    "desc": "Idle control system RPM higher than expected",
+    "causes": [
+      "Vacuum leak",
+      "Dirty throttle body",
+      "IAC valve"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0562",
+    "short": "System Voltage Low",
+    "desc": "System voltage low",
+    "causes": [
+      "Weak battery",
+      "Bad alternator",
+      "Loose belt"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0563",
+    "short": "System Voltage High",
+    "desc": "System voltage high",
+    "causes": [
+      "Overcharging alternator",
+      "Voltage regulator fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0601",
+    "short": "ECM Memory Check Error",
+    "desc": "Internal control module memory checksum error",
+    "causes": [
+      "Failing ECM",
+      "Software fault"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0606",
+    "short": "ECM Processor Fault",
+    "desc": "Control module processor fault",
+    "causes": [
+      "Failing ECM"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0700",
+    "short": "TCM Malfunction",
+    "desc": "Transmission control system malfunction",
+    "causes": [
+      "TCM fault",
+      "Wiring issue",
+      "Solenoid failure"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0705",
+    "short": "Trans Range Sensor Circuit",
+    "desc": "Transmission range sensor circuit malfunction (PRNDL)",
+    "causes": [
+      "Faulty sensor",
+      "Open or shorted wiring",
+      "Poor electrical connection"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0711",
+    "short": "TFT Sensor Range/Performance",
+    "desc": "Transmission fluid temperature sensor range/performance",
+    "causes": [
+      "Failing TFT sensor",
+      "Low fluid"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0715",
+    "short": "Input Speed Sensor",
+    "desc": "Input/turbine speed sensor circuit malfunction",
+    "causes": [
+      "Failed sensor",
+      "Wiring damage",
+      "Low fluid"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0720",
+    "short": "Output Speed Sensor",
+    "desc": "Output speed sensor circuit malfunction",
+    "causes": [
+      "Failed sensor",
+      "Wiring damage"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P0730",
+    "short": "Incorrect Gear Ratio",
+    "desc": "Incorrect gear ratio detected",
+    "causes": [
+      "Worn clutches",
+      "Low fluid",
+      "Valve body fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0740",
+    "short": "TCC Circuit",
+    "desc": "Torque converter clutch circuit malfunction/stuck off",
+    "causes": [
+      "Failing TCC solenoid",
+      "Valve body fault"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P0741",
+    "short": "TCC Stuck Off",
+    "desc": "Torque converter clutch solenoid stuck off",
+    "causes": [
+      "Failed TCC solenoid",
+      "Low fluid",
+      "Internal damage"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P1000",
+    "short": "OBD Monitors Incomplete",
+    "desc": "OBD-II monitors not complete (Ford specific)",
+    "causes": [
+      "Battery recently disconnected",
+      "Codes recently cleared",
+      "Drive cycle not complete"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "P1131",
+    "short": "Lack of HO2S Switch Lean B1",
+    "desc": "Lack of upstream heated O2 switch, sensor indicates lean, bank 1 (Ford)",
+    "causes": [
+      "Vacuum leak",
+      "Low fuel pressure",
+      "Bad O2 sensor"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P1151",
+    "short": "Lack of HO2S Switch Lean B2",
+    "desc": "Lack of upstream heated O2 switch, sensor indicates lean, bank 2 (Ford)",
+    "causes": [
+      "Vacuum leak",
+      "Low fuel pressure",
+      "Intake gasket leak"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "P1260",
+    "short": "PATS Theft Detected",
+    "desc": "Theft detected - vehicle immobilized (Ford PATS)",
+    "causes": [
+      "Wrong key",
+      "PATS module fault",
+      "Key transponder failure"
+    ],
+    "severity": "critical"
+  },
+  {
+    "code": "P1451",
+    "short": "EVAP Vent Solenoid Output",
+    "desc": "EVAP control system canister vent solenoid circuit (Ford)",
+    "causes": [
+      "Failed vent solenoid",
+      "Wiring",
+      "PCM fault"
+    ],
+    "severity": "info"
+  },
+  {
+    "code": "U0100",
+    "short": "Lost Comm with ECM/PCM",
+    "desc": "Lost communication with ECM/PCM A",
+    "causes": [
+      "CAN bus wiring fault",
+      "Failing module",
+      "Blown fuse"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "U0101",
+    "short": "Lost Comm with TCM",
+    "desc": "Lost communication with TCM",
+    "causes": [
+      "CAN bus fault",
+      "Failing TCM"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "U0121",
+    "short": "Lost Comm with ABS",
+    "desc": "Lost communication with ABS control module",
+    "causes": [
+      "CAN bus fault",
+      "Failing ABS module"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "U0140",
+    "short": "Lost Comm with BCM",
+    "desc": "Lost communication with body control module",
+    "causes": [
+      "CAN bus fault",
+      "Failing BCM"
+    ],
+    "severity": "warning"
+  },
+  {
+    "code": "U0155",
+    "short": "Lost Comm with Instrument Cluster",
+    "desc": "Lost communication with instrument panel cluster",
+    "causes": [
+      "CAN bus fault",
+      "Failing cluster"
+    ],
+    "severity": "warning"
+  }
 ]

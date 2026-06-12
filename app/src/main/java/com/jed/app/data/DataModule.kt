@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.jed.app.data.db.DataLogDao
 import com.jed.app.data.db.DtcHistoryDao
 import com.jed.app.data.db.JedDatabase
-import com.jed.app.data.db.PinStorageDao
 import com.jed.app.data.db.VehicleDao
 import dagger.Module
 import dagger.Provides
@@ -28,5 +27,4 @@ object DataModule {
     @Provides fun provideVehicleDao(db: JedDatabase): VehicleDao = db.vehicleDao()
     @Provides fun provideDataLogDao(db: JedDatabase): DataLogDao = db.dataLogDao()
     @Provides fun provideDtcHistoryDao(db: JedDatabase): DtcHistoryDao = db.dtcHistoryDao()
-    @Provides fun providePinStorageDao(db: JedDatabase): PinStorageDao = db.pinStorageDao()
 }

@@ -3,7 +3,6 @@ package com.jed.app.ui.keys
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,24 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.VpnKey
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,21 +31,15 @@ import com.jed.app.ui.components.TimerDisplay
 import com.jed.app.ui.components.WizardStep
 import com.jed.app.ui.theme.CardBackground
 import com.jed.app.ui.theme.Charcoal
-import com.jed.app.ui.theme.GreenGood
 import com.jed.app.ui.theme.LightGray
 import com.jed.app.ui.theme.MediumGray
 import com.jed.app.ui.theme.OrangeAccent
 import com.jed.app.ui.theme.OffWhite
-import com.jed.app.ui.theme.RedAlert
+import com.jed.app.ui.theme.YellowWarn
 
 @Composable
 fun KeysScreen(viewModel: KeysViewModel = hiltViewModel()) {
     val make by viewModel.make.collectAsState()
-    val pin by viewModel.pin.collectAsState()
-    val keyCount by viewModel.keyCount.collectAsState()
-    val isWorking by viewModel.isWorking.collectAsState()
-    val statusMessage by viewModel.statusMessage.collectAsState()
-    val errorMessage by viewModel.errorMessage.collectAsState()
     val gmWizardStep by viewModel.gmWizardStep.collectAsState()
     val gmTimerActive by viewModel.gmTimerActive.collectAsState()
     val gmSecuritySystem by viewModel.gmSecuritySystem.collectAsState()
@@ -66,7 +48,7 @@ fun KeysScreen(viewModel: KeysViewModel = hiltViewModel()) {
         modifier = Modifier.fillMaxSize().background(Charcoal)
             .verticalScroll(rememberScrollState()).padding(16.dp)
     ) {
-        Text("KEY PROGRAMMING", color = OrangeAccent, fontSize = 18.sp, fontWeight = FontWeight.Black)
+        Text("SECURITY & KEYS", color = OrangeAccent, fontSize = 18.sp, fontWeight = FontWeight.Black)
         Spacer(Modifier.height(16.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             listOf("Ford", "Chevrolet").forEach { m ->
@@ -82,7 +64,7 @@ fun KeysScreen(viewModel: KeysViewModel = hiltViewModel()) {
         Spacer(Modifier.height(24.dp))
 
         if (make == "Ford") {
-            FordPatsSection(viewModel, pin, keyCount, isWorking, statusMessage, errorMessage)
+            FordKeyGuidance()
         } else {
             GmSecuritySection(viewModel, gmWizardStep, gmTimerActive, gmSecuritySystem)
         }
@@ -90,64 +72,51 @@ fun KeysScreen(viewModel: KeysViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun FordPatsSection(
-    viewModel: KeysViewModel, pin: String?, keyCount: Int?,
-    isWorking: Boolean, statusMessage: String?, errorMessage: String?
-) {
-    val clipboard = LocalClipboardManager.current
+private fun FordKeyGuidance() {
     Column {
-        Text("Ford PATS PIN Retrieval", color = OffWhite, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        Text("Retrieve the security PIN from your Ford's PATS module", color = LightGray, fontSize = 13.sp)
-        Spacer(Modifier.height(16.dp))
+        Text("Ford PATS Keys", color = OffWhite, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+        Spacer(Modifier.height(8.dp))
 
-        Button(
-            onClick = { viewModel.retrieveFordPin(0, "") },
-            colors = ButtonDefaults.buttonColors(containerColor = OrangeAccent),
-            modifier = Modifier.fillMaxWidth().height(56.dp), enabled = !isWorking
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .background(CardBackground, RoundedCornerShape(10.dp))
+                .border(1.dp, YellowWarn.copy(alpha = 0.7f), RoundedCornerShape(10.dp))
+                .padding(14.dp)
         ) {
-            if (isWorking) CircularProgressIndicator(color = OffWhite, modifier = Modifier.padding(end = 8.dp))
-            else Icon(Icons.Default.VpnKey, contentDescription = null, modifier = Modifier.padding(end = 8.dp))
-            Text("Retrieve PIN", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            Text("PIN extraction is not possible over a generic adapter", color = YellowWarn, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            Spacer(Modifier.height(6.dp))
+            Text(
+                "Reading a Ford PATS incode/outcode PIN requires dealer software (Ford IDS/FDRS) " +
+                    "or a dedicated locksmith key-programming tool. An ELM327-class adapter cannot do it, " +
+                    "so this app does not pretend to.",
+                color = OffWhite.copy(alpha = 0.85f), fontSize = 13.sp
+            )
         }
 
-        statusMessage?.let { Text(it, color = GreenGood, fontSize = 13.sp, modifier = Modifier.padding(top = 8.dp)) }
-        errorMessage?.let { Text(it, color = RedAlert, fontSize = 13.sp, modifier = Modifier.padding(top = 8.dp)) }
-
-        if (pin != null) {
-            Spacer(Modifier.height(24.dp))
-            Box(
-                modifier = Modifier.fillMaxWidth()
-                    .background(CardBackground, RoundedCornerShape(12.dp))
-                    .border(2.dp, GreenGood, RoundedCornerShape(12.dp)).padding(24.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("SECURITY PIN", color = GreenGood, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(pin, color = OffWhite, fontSize = 48.sp, fontWeight = FontWeight.Black)
-                        IconButton(onClick = { clipboard.setText(AnnotatedString(pin)) }) {
-                            Icon(Icons.Default.ContentCopy, contentDescription = "Copy", tint = OrangeAccent)
-                        }
-                    }
-                    keyCount?.let { Text("$it key(s) currently programmed", color = LightGray, fontSize = 13.sp) }
-                }
-            }
-            Spacer(Modifier.height(24.dp))
-            Text("Key Programming Steps", color = OrangeAccent, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Spacer(Modifier.height(8.dp))
-            listOf(
-                "Insert first programmed key, turn to ON for 1 second, then OFF",
-                "Within 5 seconds, insert second programmed key, turn to ON for 1 second, then OFF",
-                "Within 10 seconds, insert NEW key, turn to ON",
-                "Wait for security light to illuminate for 3 seconds, then turn off",
-                "New key is programmed. Turn OFF and test."
-            ).forEachIndexed { idx, step ->
-                Row(modifier = Modifier.padding(vertical = 4.dp)) {
-                    Text("${idx + 1}.", color = OrangeAccent, fontWeight = FontWeight.Bold, modifier = Modifier.width(24.dp))
-                    Text(step, color = OffWhite, fontSize = 14.sp)
-                }
+        Spacer(Modifier.height(20.dp))
+        Text("Onboard spare-key programming", color = OrangeAccent, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        Text(
+            "Many 1998-2011 Fords can add a key WITHOUT any tool if you already have two " +
+                "programmed keys. If you have fewer than two keys, you need a locksmith or dealer.",
+            color = LightGray, fontSize = 13.sp, modifier = Modifier.padding(vertical = 6.dp)
+        )
+        listOf(
+            "Insert the 1st programmed key, turn to ON for ~3 seconds, then OFF and remove",
+            "Within 10 seconds, insert the 2nd programmed key, turn to ON for ~3 seconds, then OFF and remove",
+            "Within 20 seconds, insert the NEW (unprogrammed) key and turn to ON",
+            "The theft/security light should illuminate for ~3 seconds, then turn off",
+            "Turn OFF. The new key should now start the vehicle — test it"
+        ).forEachIndexed { idx, step ->
+            Row(modifier = Modifier.padding(vertical = 4.dp)) {
+                Text("${idx + 1}.", color = OrangeAccent, fontWeight = FontWeight.Bold, modifier = Modifier.width(24.dp))
+                Text(step, color = OffWhite, fontSize = 14.sp)
             }
         }
+        Spacer(Modifier.height(12.dp))
+        Text(
+            "Exact timing varies by model and year — check your owner's manual to confirm your vehicle supports onboard programming.",
+            color = LightGray, fontSize = 12.sp
+        )
     }
 }
 
@@ -159,13 +128,17 @@ private fun GmSecuritySection(
     val reLearnSteps = GmSecurity.getReLearnSteps(securitySystem)
     Column {
         Text("GM Security Relearn", color = OffWhite, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-        Text("GM vehicles use relearn procedures instead of PINs. System: ${securitySystem.name}",
-            color = LightGray, fontSize = 13.sp)
+        Text(
+            "GM vehicles use owner-performed relearn procedures instead of PINs. System: ${securitySystem.name}",
+            color = LightGray, fontSize = 13.sp
+        )
         Spacer(Modifier.height(16.dp))
 
         val wizardSteps = reLearnSteps.mapIndexed { idx, step ->
-            WizardStep(title = "Step ${step.stepNumber}", description = step.instruction,
-                isComplete = idx < currentStep, isCurrent = idx == currentStep)
+            WizardStep(
+                title = "Step ${step.stepNumber}", description = step.instruction,
+                isComplete = idx < currentStep, isCurrent = idx == currentStep
+            )
         }
         StepWizard(
             steps = wizardSteps, currentStep = currentStep,

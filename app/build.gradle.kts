@@ -71,9 +71,6 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
 
-    // Security (encrypted shared prefs for PIN storage)
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
-
     // Gson for DTC JSON parsing
     implementation("com.google.code.gson:gson:2.11.0")
 

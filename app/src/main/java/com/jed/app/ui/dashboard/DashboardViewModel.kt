@@ -2,8 +2,8 @@ package com.jed.app.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jed.app.bluetooth.BluetoothTransport
-import com.jed.app.bluetooth.ConnectionState
+import com.jed.app.transport.ConnectionState
+import com.jed.app.transport.TransportManager
 import com.jed.app.data.db.DataLogDao
 import com.jed.app.data.model.DataLogEntry
 import com.jed.app.obd.LivePidReading
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val obdService: ObdService,
-    private val transport: BluetoothTransport,
+    private val transport: TransportManager,
     private val dataLogDao: DataLogDao
 ) : ViewModel() {
 

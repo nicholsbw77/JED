@@ -14,6 +14,18 @@ data class LivePidReading(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+data class MonitorStatus(
+    val name: String,
+    val supported: Boolean,
+    val complete: Boolean
+)
+
+data class ReadinessResult(
+    val milOn: Boolean,
+    val dtcCount: Int,
+    val monitors: List<MonitorStatus>
+)
+
 @Singleton
 class ObdService @Inject constructor(
     private val elm: ElmConnection
@@ -74,6 +86,67 @@ class ObdService @Inject constructor(
     suspend fun readVin(): String? {
         val response = elm.sendObdQuery("0902", 5000) ?: return null
         return parseVinResponse(response)
+    }
+
+    suspend fun readCalibrationId(): String? {
+        val response = elm.sendObdQuery("0904", 5000) ?: return null
+        return parseAsciiInfo(response, "4904")
+    }
+
+    suspend fun readCvn(): String? {
+        val response = elm.sendObdQuery("0906", 5000) ?: return null
+        val hex = response.replace(" ", "").replace("\n", "")
+        val start = hex.indexOf("4906")
+        if (start < 0) return null
+        val data = hex.substring(start + 4).filter { it.isLetterOrDigit() }
+        if (data.length < 2) return null
+        return data.chunked(8).joinToString(" ").trim().ifBlank { null }
+    }
+
+    suspend fun readReadiness(): ReadinessResult? {
+        val response = elm.sendObdQuery("0101", 3000) ?: return null
+        val hex = response.replace(" ", "").replace("\n", "")
+        val idx = hex.indexOf("4101")
+        if (idx < 0) return null
+        val data = hex.substring(idx + 4)
+        if (data.length < 8) return null
+        val a = data.substring(0, 2).toInt(16)
+        val b = data.substring(2, 4).toInt(16)
+        val c = data.substring(4, 6).toInt(16)
+        val d = data.substring(6, 8).toInt(16)
+
+        val monitors = mutableListOf<MonitorStatus>()
+        // Continuous monitors (byte B): supported = low nibble, complete = high nibble bit clear.
+        monitors += MonitorStatus("Misfire", b and 0x01 != 0, b and 0x10 == 0)
+        monitors += MonitorStatus("Fuel System", b and 0x02 != 0, b and 0x20 == 0)
+        monitors += MonitorStatus("Components", b and 0x04 != 0, b and 0x40 == 0)
+        // Non-continuous monitors: supported in C, "not complete" flagged in D.
+        val names = listOf(
+            "Catalyst", "Heated Catalyst", "Evap System", "Secondary Air",
+            "A/C Refrigerant", "O2 Sensor", "O2 Sensor Heater", "EGR System"
+        )
+        for (i in 0 until 8) {
+            monitors += MonitorStatus(
+                name = names[i],
+                supported = c and (1 shl i) != 0,
+                complete = d and (1 shl i) == 0
+            )
+        }
+        return ReadinessResult(milOn = a and 0x80 != 0, dtcCount = a and 0x7F, monitors = monitors)
+    }
+
+    private fun parseAsciiInfo(response: String, marker: String): String? {
+        val hex = response.replace(" ", "").replace("\n", "")
+        val start = hex.indexOf(marker)
+        if (start < 0) return null
+        val data = hex.substring(start + 4)
+        val bytes = ByteArray(data.length / 2) { i ->
+            data.substring(i * 2, i * 2 + 2).toInt(16).toByte()
+        }
+        return String(bytes, Charsets.US_ASCII)
+            .filter { it.isLetterOrDigit() || it == '.' || it == '-' || it == '/' }
+            .trim()
+            .ifBlank { null }
     }
 
     private fun parseDtcResponse(response: String): List<String> {
